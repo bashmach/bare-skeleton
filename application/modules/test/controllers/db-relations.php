@@ -29,17 +29,8 @@ function () use ($view) {
         ]
     );
 
-    /* @var Pages\Row */
-    $page = Pages\Table::findRow(5);
-    $user = $page->getRelation('Users');
-
-    echo "<h2>Page Owner</h2>";
-    var_dump($user);
-
-    $pages = $user->getRelations('Pages');
-
-    echo "<h2>User pages</h2>";
-    var_dump(sizeof($pages));
+    /* @var Users\Row */
+    $user = Users\Table::findRow(1);
 
     $roles = $user->getRelations('Roles');
 
@@ -48,13 +39,6 @@ function () use ($view) {
 
     echo "<h2>User with all relations</h2>";
     var_dump($user);
-
-    $result = Db::fetchRelations(
-        "SELECT '__users', u.*, '__pages', p.* FROM users u LEFT JOIN pages p ON p.userId = u.id"
-    );
-
-    echo "<h2>User - Page relation</h2>";
-    var_dump($result);
 
     return false;
 };
